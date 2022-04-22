@@ -13,7 +13,7 @@ class MessageModel(db.Model):
         self.senderID = senderID
         self.conversationID = conversationID
         self.content = content
-        self.timeStamp = datetime.utcnow
+        self.timeStamp = datetime.utcnow()
     
 class UserModel(db.Model):
     ID = db.Column(db.Integer,primary_key=True)
@@ -26,16 +26,17 @@ class UserModel(db.Model):
 class ConversationModel(db.Model):
     ID = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.Integer,nullable=True)
-    def __init__(self, name=None: str):
+    def __init__(self, name: str = None):
         self.name = name
 
-class ConversationMemberModel(db.Model):
+class ParticipantModel(db.Model):
+    ID = db.Column(db.Integer,primary_key=True)
     userID = db.Column(db.Integer,nullable=False)
     conversationID = db.Column(db.Integer,nullable=False)
     joinedDateTime = db.Column(db.DateTime,nullable=False)
     leftDateTime = db.Column(db.DateTime,nullable=False)
-    def __init__(self) -> None:
-        self.joinedDateTime = datetime.utcnow
+    def __init__(self) -> None:                       
+        self.joinedDateTime = datetime.utcnow()
         self.leftDateTime = None
 
 

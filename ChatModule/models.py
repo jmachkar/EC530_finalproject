@@ -19,9 +19,11 @@ class UserModel(db.Model):
     ID = db.Column(db.Integer,primary_key=True)
     firstName = db.Column(db.String,nullable=False)
     lastName = db.Column(db.String,nullable=False)
-    def __init__(self, firstName: str, lastName: str) -> None:
+    password = db.Column(db.String, nullable=False)
+    def __init__(self, firstName: str, lastName: str, password: str) -> None:
         self.firstName = firstName
         self.lastName = lastName
+        self.password = password
 
 class ConversationModel(db.Model):
     ID = db.Column(db.Integer,primary_key=True)

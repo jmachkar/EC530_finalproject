@@ -19,7 +19,9 @@ class Login extends Component {
         <button
           type="submit"
           className="submit"
-          onClick={() => console.log("Logged in")}
+          onClick={
+            () => console.log("Logged in") /* call get request function here */
+          }
         >
           Login
         </button>

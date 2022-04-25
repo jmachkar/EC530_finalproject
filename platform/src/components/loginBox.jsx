@@ -4,21 +4,22 @@ class Login extends Component {
   state = {};
   render() {
     return (
-      <div className="login-box">
-        <div>
+      <div className={this.props.visibility} id="loginBox">
+        <h1>{this.props.role}</h1>
+        <div className="input-container">
           <label htmlFor="username" className="text-u">
             Username
           </label>
           <input type="text" name="username" placeholder="Username"></input>
         </div>
-        <div>
+        <div className="input-container">
           <label htmlFor="password">Password</label>
           <input type="password" name="password" placeholder="Password"></input>
         </div>
         <button
           type="submit"
-          className="btn btn-secondary"
-          onClick={console.log("Logged in")}
+          className="submit"
+          onClick={() => console.log("Logged in")}
         >
           Login
         </button>

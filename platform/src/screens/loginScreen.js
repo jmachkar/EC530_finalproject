@@ -20,17 +20,16 @@ class LoginScreen extends Component {
   };
 
   showLogin = (role) => {
-    let v = "login-box-visible";
-    let newState = {
-      v: v,
-      roles: [
-        { key: "Student", icon: faSchool },
-        { key: "Teacher", icon: faGraduationCap },
-        { key: "Admin", icon: faDesktop },
-      ],
-      curr: role,
-    };
-    this.setState(newState);
+    const v = "login-box-visible";
+    const curr = role;
+    this.setState({ v, curr });
+    console.log(this.state.v);
+    console.log(this.state.curr);
+  };
+
+  closeLogin = () => {
+    const v = "login-box-hidden";
+    this.setState({ v });
     console.log(this.state.v);
   };
 
@@ -40,7 +39,11 @@ class LoginScreen extends Component {
         <h1>Welcome to the platform!</h1>
         <h2>Please chosose your role</h2>
         <Buttons onClick={this.showLogin} roles={this.state.roles} />
-        <Login visibility={this.state.v} role={this.state.curr} />
+        <Login
+          visibility={this.state.v}
+          role={this.state.curr}
+          close={this.closeLogin}
+        />
       </div>
     );
   }

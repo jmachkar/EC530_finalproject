@@ -6,11 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import "./components/login.css";
 import LoginScreen from "./screens/loginScreen";
+import ChatScreen from "./screens/chatScreen";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <LoginScreen />
+    {/* <ChatScreen /> */}
   </React.StrictMode>
 );
 

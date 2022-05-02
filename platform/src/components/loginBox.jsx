@@ -13,17 +13,27 @@ class Login extends Component {
           <label htmlFor="username" className="text-u">
             Username
           </label>
-          <input type="text" name="username" placeholder="Username"></input>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            onChange={(e) => this.props.userChange(e.target.value)}
+          ></input>
         </div>
         <div className="input-container">
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" placeholder="Password"></input>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={(e) => this.props.passwordChange(e.target.value)}
+          ></input>
         </div>
         <button
           type="submit"
           className="submit"
           onClick={
-            () => console.log("Logged in") /* call get request function here */
+            () => this.props.login() /* call get request function here */
           }
         >
           Login

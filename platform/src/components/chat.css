@@ -41,8 +41,9 @@
 }
 
 .chat-tags {
-  width: 20%;
-  height: 100%;
+  width: 100%;
+  height: 92%;
+  overflow-y: scroll;
 }
 
 .input {
@@ -61,7 +62,7 @@
 }
 
 .group-name-tag {
-  font-size: 3vmin;
+  font-size: 2.2vmin;
 }
 
 .main-chat {
@@ -70,7 +71,7 @@
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(135deg, #1664d8, #5bb8ee);
+  background: linear-gradient(135deg, #0557d3, #76c3ef);
 }
 
 .message-sent {
@@ -157,6 +158,11 @@
 .send-icon {
   margin-bottom: 7px;
   margin-right: 7px;
+}
+
+.side-bar {
+  width: 20%;
+  height: 100%;
 }
 
 .sub-main-chat {

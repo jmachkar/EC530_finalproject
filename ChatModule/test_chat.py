@@ -152,6 +152,10 @@ convQuery = {
 response = requests.get(BASE + '/conversations/', json = convQuery)
 print(response.json())
 
+print("Getting marco")
+response = requests.get(BASE + '/users/jachkar/password')
+print(response.json())
+
 
 # BASE = 'http://127.0.0.1:5000'
 # response = requests.get(BASE + '/users/dcabrera/password')

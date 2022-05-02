@@ -14,8 +14,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Router>
     <Routes>
-      <Route path={"login"} element={<LoginScreen />} />
-      <Route path={"chat"} element={<ChatScreen />} />
+      <Route path={"/"} element={<LoginScreen />} />
+      <Route path={"chat/:role/:username/:pw"} element={<ChatScreen />} />
     </Routes>
   </Router>
 );

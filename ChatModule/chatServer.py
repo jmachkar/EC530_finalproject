@@ -115,14 +115,19 @@ class ConversationResource(Resource):
         db.session.commit()
         return conversation
     @api.marshal_with(convFields,code=200)
-    def get(self):
-        args = getConvArgs.parse_args()
-        user = UserModel.query.filter(UserModel.username == args['username']).first()
+    def get(self, username, password):
+        # args = getConvArgs.parse_args()
+        # user = UserModel.query.filter(UserModel.username == args['username']).first()
+        user = UserModel.query.filter(UserModel.username == username).first()
+
         if user is None:
             abort(401)
-        if user.password != args['password']:
+        # if user.password != args['password']:
+        #     abort(401)
+        if user.password != password:
             abort(401)
-        memberships = ParticipantModel.query.filter(ParticipantModel.username == args['username']).all()
+        # memberships = ParticipantModel.query.filter(ParticipantModel.username == args['username']).all()
+        memberships = ParticipantModel.query.filter(ParticipantModel.username == username).all()
         conversations = []
         for membership in memberships:
             conversations.append(ConversationModel.query.get(membership.conversationID))
@@ -227,6 +232,7 @@ class UserResource(Resource):
         # user = UserModel.query.filter(UserModel.username == args['username']).first()
         user = UserModel.query.filter(UserModel.username == username).first()
         if user is None:
+            print("Here")
             abort(401)
         if user.password != password:
             abort(401)
@@ -234,7 +240,9 @@ class UserResource(Resource):
 
 api.add_resource(MsgResource,'/messages/')
 api.add_resource(ConversationResource,'/conversations/')
+api.add_resource(ConversationResource,'/conversations/<string:username>/<string:password>')
 api.add_resource(ParticipantResource,'/participants/')
+api.add_resource(UserResource,'/users/')
 api.add_resource(UserResource,'/users/<string:username>/<string:password>')
 
 if __name__ == '__main__':

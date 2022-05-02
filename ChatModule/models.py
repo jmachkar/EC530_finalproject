@@ -1,3 +1,4 @@
+from this import d
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -30,6 +31,8 @@ class UserModel(db.Model):
         self.username = username
         self.password = password
         self.role = role
+    def __repr__(self) -> str:
+        return f'username: {self.username}, firstName: {self.firstName}, lastName: {self.lastName}'
 
 class ConversationModel(db.Model):
     ID = db.Column(db.Integer,primary_key=True)

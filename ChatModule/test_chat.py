@@ -23,7 +23,7 @@ osama = {
     'role': 'Teacher'
 }
 
-print('users are added')
+print('post users')
 response = requests.post(BASE + '/users/dcabrera/password', json = dan)
 print(response.json())
 response = requests.post(BASE + '/users/jmikulskis/password', json = john)
@@ -33,6 +33,10 @@ print(response.json())
 response = requests.post(BASE + '/users/osama/password', json = osama)
 print(response.json())
 response = requests.post(BASE + '/users/osama/password', json = osama)
+print(response.json())
+
+print('get user')
+response = requests.get(BASE + '/users/dcabrera/password')
 print(response.json())
 
 # start a convo

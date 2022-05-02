@@ -31,7 +31,7 @@ class MsgResource(Resource):
         conversation = ConversationModel.query.get(conversationID)
         if conversation is None:
             abort(409, 'conversation does not exist')
-        if not UserResource.authenticate(username,password):
+        if not authenticate(username,password):
             abort(401)
         msg = MessageModel(
             username = username,
@@ -44,7 +44,7 @@ class MsgResource(Resource):
         return msg
     @api.marshal_with(msgFields, code=200)
     def get(self,username,password,conversationID):
-        if not UserResource.authenticate(username,password):
+        if not authenticate(username,password):
             abort(401)
         participants = ParticipantModel.query.filter(ParticipantModel.conversationID == conversationID)
         participant = participants.filter(ParticipantModel.username == username).first()
@@ -71,7 +71,7 @@ class ConversationResource(Resource):
     @api.marshal_with(convFields,code=201)
     def post(self, username, password):
         args = postConvArgs.parse_args()
-        if not UserResource.authenticate(username,password):
+        if not authenticate(username=username,password=password):
             abort(401)
         conversation = ConversationModel(
             name = args['name'],
@@ -90,7 +90,7 @@ class ConversationResource(Resource):
         return conversation
     @api.marshal_with(convFields,code=200)
     def get(self, username, password):
-        if not UserResource.authenticate(username,password):
+        if not authenticate(username,password):
             abort(401)
         memberships = ParticipantModel.query.filter(ParticipantModel.username == username).all()
         conversations = []
@@ -113,7 +113,7 @@ postParticipantArgs.add_argument('participant', type=str, required=True)
 class ParticipantResource(Resource):
     @api.marshal_with(participantFields, code=201)
     def post(self, username, password, conversationID):
-        if not UserResource.authenticate(username,password):
+        if not authenticate(username,password):
             abort(401)
         args = postParticipantArgs.parse_args()
         conversation = ConversationModel.query.get(conversationID)
@@ -135,7 +135,7 @@ class ParticipantResource(Resource):
         return participant
     @api.marshal_with(participantFields, code=200)
     def get(self,username,password,conversationID):
-        if not UserResource.authenticate(username,password):
+        if not authenticate(username,password):
             abort(401)
         participants = ParticipantModel.query.filter(ParticipantModel.conversationID == conversationID).all()
         return participants
@@ -175,17 +175,17 @@ class UserResource(Resource):
         return user
     @api.marshal_with(userFields,code=200)
     def get(self,username,password):
-        if not self.authenticate(username,password):
+        if not authenticate(username,password):
             abort(401)
-        user = UserModel.query.filter(UserModel.username == username)
-        return user
-    def authenticate(username,password):
         user = UserModel.query.filter(UserModel.username == username).first()
-        if user is None:
-            return False
-        if user.password != password:
-            return False
-        return True
+        return user
+def authenticate(username,password):
+    user = UserModel.query.filter(UserModel.username == username).first()
+    if user is None:
+        return False
+    if user.password != password:
+        return False
+    return True
 
 api.add_resource(MsgResource,'/messages/<string:username>/<string:password>/<string:conversationID>')
 api.add_resource(ConversationResource,'/conversations/<string:username>/<string:password>')

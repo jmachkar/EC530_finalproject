@@ -1,0 +1,172 @@
+.chat-box {
+  width: 80%;
+  height: 100%;
+  border-left: 2px solid black;
+}
+
+.chats-header {
+  font-size: 3vmin;
+  margin-left: 25%;
+}
+
+.chats-header-box {
+  height: 8%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 2px solid black;
+}
+.chat-name {
+  font-size: 4vmin;
+}
+
+.chat-name-box {
+  height: 8%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-bottom: 2px solid;
+}
+
+.chat-tag {
+  height: 10%;
+  width: 100%;
+  /* margin: 10px; */
+  padding: 10px;
+  /* border-top: 2px solid black; */
+  border-bottom: 2px solid rgb(176, 176, 176);
+  /* border-left: 2px solid black;*/
+}
+
+.chat-tags {
+  width: 20%;
+  height: 100%;
+}
+
+.input {
+  width: 90%;
+  height: 100%;
+  resize: none;
+  padding: 8px;
+}
+
+.input-box {
+  width: 100%;
+  height: 8%;
+  display: flex;
+  flex-direction: row;
+  border-bottom-right-radius: 8%;
+}
+
+.group-name-tag {
+  font-size: 3vmin;
+}
+
+.main-chat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #1664d8, #5bb8ee);
+}
+
+.message-sent {
+  border-radius: 15px;
+  background-color: #357be4;
+  width: 95%;
+  height: min-content;
+  margin: 5px;
+  padding: 10px;
+  /* justify-content: flex-end;
+  display: flex; */
+}
+
+.message-received {
+  border-radius: 15px;
+  background-color: #5d6164;
+  width: 95%;
+  height: min-content;
+  margin: 5px;
+  padding: 10px;
+}
+
+.messages {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  height: 92%;
+  overflow-y: scroll;
+}
+
+.message-content-sent {
+  border-radius: 15px;
+  background-color: #357be4;
+  height: min-content;
+  margin: 10px;
+  padding: 10px;
+  overflow-wrap: anywhere;
+  font-size: large;
+  color: white;
+  display: flex;
+  flex-direction: row-reverse;
+  width: fit-content;
+  align-self: flex-end;
+}
+
+.message-content-received {
+  border-radius: 15px;
+  background-color: #5d6164;
+  height: min-content;
+  margin: 10px;
+  padding: 10px;
+  overflow-wrap: anywhere;
+  font-size: large;
+  color: white;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.message-type-box {
+  height: 92%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: #f4d9a0;
+  background-image: url(https://previews.123rf.com/images/keronn/keronn1912/keronn191200124/136460142-space-seamless-background-science-set-collection-cute-funny-background-hand-drawn-artwork-black-and-.jpg);
+  background-size: contain;
+  border-bottom-right-radius: 8%;
+  align-items: center;
+}
+
+.send-button {
+  height: 100%;
+  width: 10%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.send-icon {
+  margin-bottom: 7px;
+  margin-right: 7px;
+}
+
+.sub-main-chat {
+  width: 85%;
+  height: 85%;
+  display: flex;
+  flex-direction: row;
+  /* border: 5px solid rgb(255, 255, 255); */
+  background-color: white;
+  border-radius: 40px;
+  box-shadow: 0px 0px 30px 20px rgba(135, 126, 126, 0.68);
+  overflow: hidden;
+}

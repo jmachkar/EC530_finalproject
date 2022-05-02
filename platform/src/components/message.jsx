@@ -6,9 +6,21 @@ class Message extends Component {
   };
   render() {
     return (
-      <div>
-        <p>{this.state.message}</p>
+      // <div
+      //   className={
+      //     this.state.message.sent ? "message-sent" : "message-received"
+      //   }
+      // >
+      <div
+        className={
+          this.state.message.sent
+            ? "message-content-sent"
+            : "message-content-received"
+        }
+      >
+        {this.state.message.message}
       </div>
+      /* </div> */
     );
   }
 }

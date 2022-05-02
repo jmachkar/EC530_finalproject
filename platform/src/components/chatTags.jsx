@@ -5,7 +5,10 @@ class ChatTags extends Component {
   state = {};
   render() {
     return (
-      <div>
+      <div className="chat-tags">
+        <div className="chats-header-box">
+          <b className="chats-header">Chats</b>
+        </div>
         {this.props.chats.map((chat) => (
           <ChatTag
             key={chat.id}

@@ -5,11 +5,11 @@ class Messages extends Component {
   state = {};
   render() {
     return (
-      <div>
+      <div className="messages">
         {this.props.messages.map((m) => {
           // TO BE CHANGED WHEN BACKEND DONE
           if (m.cid === this.props.cid)
-            return <Message message={m.message} key={m.key} />;
+            return <Message message={m} key={m.key} />;
           return null;
         })}
       </div>

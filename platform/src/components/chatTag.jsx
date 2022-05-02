@@ -7,10 +7,11 @@ class ChatTag extends Component {
   };
   render() {
     return (
-      <div>
-        <p onClick={() => this.props.onClick(this.state.chat)}>
-          {this.state.chat.name}
-        </p>
+      <div
+        className="chat-tag"
+        onClick={() => this.props.onClick(this.state.chat)}
+      >
+        <p className="group-name-tag">{this.state.chat.name}</p>
       </div>
     );
   }

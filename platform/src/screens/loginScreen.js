@@ -35,7 +35,7 @@ class LoginScreen extends Component {
 
   render() {
     return (
-      <div className="main">
+      <div className="main-login">
         <h1>Welcome to the platform!</h1>
         <h2>Please chosose your role</h2>
         <Buttons onClick={this.showLogin} roles={this.state.roles} />

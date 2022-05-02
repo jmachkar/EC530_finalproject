@@ -11,12 +11,17 @@ class ChatScreen extends Component {
     ],
     curr: { id: -1, name: "" },
     messages: [
-      { key: 0, message: "hello", cid: 0 },
-      { key: 1, message: "hi", cid: 0 },
-      { key: 2, message: "yooooooo", cid: 0 },
-      { key: 3, message: "eyooo", cid: 1 },
-      { key: 4, message: "fdjfhs", cid: 1 },
-      { key: 5, message: "yo", cid: 2 },
+      { key: 0, message: "hello", cid: 0, sent: true },
+      { key: 1, message: "hi", cid: 0, sent: false },
+      {
+        key: 2,
+        message: "yoooooooooooooooooooooooooooooooooooooooooooooooooo",
+        cid: 0,
+        sent: false,
+      },
+      { key: 3, message: "eyooo", cid: 1, sent: false },
+      { key: 4, message: "fdjfhs", cid: 1, sent: true },
+      { key: 5, message: "yo", cid: 2, sent: false },
     ],
   };
 
@@ -29,12 +34,27 @@ class ChatScreen extends Component {
     console.log(this.state.curr);
   };
 
+  handleOnSend = (message) => {
+    if (message.message.length > 0 && message.cid > 0) {
+      let messages = this.state.messages;
+      messages.push(message);
+      this.setState({ messages });
+      console.log(message.message);
+      console.log(message.sent);
+    }
+  };
+
   render() {
     return (
-      <div>
-        <h1>Chats</h1>
-        <ChatTags chats={this.state.chats} onClick={this.handleOnClick} />
-        <ChatBox curr={this.state.curr} messages={this.state.messages} />
+      <div className="main-chat">
+        <div className="sub-main-chat">
+          <ChatTags chats={this.state.chats} onClick={this.handleOnClick} />
+          <ChatBox
+            curr={this.state.curr}
+            messages={this.state.messages}
+            send={this.handleOnSend}
+          />
+        </div>
       </div>
     );
   }

@@ -1,12 +1,11 @@
-from ast import Pass
-import re
 from flask import Flask, abort
+from flask_cors import CORS
 from flask_restx import Api, Resource, reqparse, fields
-from matplotlib.style import use
 from models import db, MessageModel, ConversationModel, ParticipantModel, UserModel
 from datetime import datetime
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chatDatabase.db'
 db.init_app(app)

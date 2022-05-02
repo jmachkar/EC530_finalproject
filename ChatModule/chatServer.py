@@ -226,6 +226,8 @@ class UserResource(Resource):
         # args = getUserArgs.parse_args()
         # user = UserModel.query.filter(UserModel.username == args['username']).first()
         user = UserModel.query.filter(UserModel.username == username).first()
+        if user is None:
+            abort(401)
         if user.password != password:
             abort(401)
         return user

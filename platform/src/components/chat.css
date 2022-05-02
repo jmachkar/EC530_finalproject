@@ -118,7 +118,7 @@
 
 .message-content-received {
   border-radius: 15px;
-  background-color: #5d6164;
+  background-color: #444546;
   height: min-content;
   margin: 10px;
   padding: 10px;
@@ -138,7 +138,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background-color: #f4d9a0;
+  background-color: #ffffff;
   background-image: url(https://previews.123rf.com/images/keronn/keronn1912/keronn191200124/136460142-space-seamless-background-science-set-collection-cute-funny-background-hand-drawn-artwork-black-and-.jpg);
   background-size: contain;
   border-bottom-right-radius: 8%;
@@ -160,7 +160,7 @@
 }
 
 .sub-main-chat {
-  width: 85%;
+  width: 80%;
   height: 85%;
   display: flex;
   flex-direction: row;

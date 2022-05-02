@@ -28,7 +28,7 @@
 .login-box-visible {
   visibility: visible;
   border: 3px solid #ffffff;
-  border-radius: 0.3rem;
+  border-radius: 1rem;
   padding: 10px;
   display: flex;
   justify-content: center;

@@ -5,6 +5,9 @@ class Login extends Component {
   render() {
     return (
       <div className={this.props.visibility} id="loginBox">
+        <div className="close" onClick={this.props.close}>
+          x
+        </div>
         <h1>{this.props.role}</h1>
         <div className="input-container">
           <label htmlFor="username" className="text-u">

@@ -15,7 +15,6 @@ with app.app_context():
 msgFields = api.model(
     'Message', 
     {
-        'ID': fields.Integer,
         'username': fields.String,
         'conversationID': fields.Integer,
         'content': fields.String,
@@ -24,32 +23,19 @@ msgFields = api.model(
 )
 
 postMsgArgs = reqparse.RequestParser(bundle_errors=True)
-postMsgArgs.add_argument('username',type=str, required=True)
-postMsgArgs.add_argument('password',type=str,required=True)
-postMsgArgs.add_argument('conversationID',type=int,required=True)
 postMsgArgs.add_argument('content',type=str,required=True)
-
-getMsgArgs = reqparse.RequestParser(bundle_errors=True)
-getMsgArgs.add_argument('username',type=str, required=True)
-getMsgArgs.add_argument('password',type=str, required=True)
-getMsgArgs.add_argument('conversationID',type=int, required=True)
-getMsgArgs.add_argument('content',type=str,required=False)
-
 class MsgResource(Resource):
     @api.marshal_with(msgFields,code=201)
-    def post(self):
+    def post(self,username,password,conversationID):
         args = postMsgArgs.parse_args()
-        conversation = ConversationModel.query.get(args['conversationID'])
+        conversation = ConversationModel.query.get(conversationID)
         if conversation is None:
             abort(409, 'conversation does not exist')
-        user = UserModel.query.filter(UserModel.username == args['username']).first()
-        if user is None:
-            abort(401)
-        if user.password != args['password']:
+        if not UserResource.authenticate(username,password):
             abort(401)
         msg = MessageModel(
-            username = args['username'],
-            conversationID = args['conversationID'],
+            username = username,
+            conversationID = conversationID,
             content = args['content']
         )
         db.session.add(msg)
@@ -57,57 +43,45 @@ class MsgResource(Resource):
         db.session.commit()
         return msg
     @api.marshal_with(msgFields, code=200)
-    def get(self):
-        args = getMsgArgs.parse_args()
-        user = UserModel.query.filter(UserModel.username == args['username']).first()
-        if user is None:
+    def get(self,username,password,conversationID):
+        if not UserResource.authenticate(username,password):
             abort(401)
-        if user.password != args['password']:
-            abort(401)
-        participants = ParticipantModel.query.filter(ParticipantModel.conversationID == args['conversationID'])
-        participant = participants.filter(ParticipantModel.username == args['username']).first()
+        participants = ParticipantModel.query.filter(ParticipantModel.conversationID == conversationID)
+        participant = participants.filter(ParticipantModel.username == username).first()
         if participant is None:
             abort(403)
-        msgsQuery = MessageModel.query.filter(MessageModel.conversationID == args['conversationID'])
+        msgsQuery = MessageModel.query.filter(MessageModel.conversationID == conversationID)
         msgsQuery = msgsQuery.filter(MessageModel.timeStamp >= participant.joinedDateTime)
-        if args['content'] is not None:
-            search = "%{}%".format(args['content'])
-            msgsQuery = msgsQuery.filter(MessageModel.content.like(search))
+        # if args['content'] is not None:
+        #     search = "%{}%".format(args['content'])
+        #     msgsQuery = msgsQuery.filter(MessageModel.content.like(search))
         return msgsQuery.all()
 
 convFields = api.model(
     'Conversation', 
     {
         'ID': fields.Integer,
-        'name': fields.String
+        'name': fields.String,
+        'admin': fields.String
     }
 )
 postConvArgs = reqparse.RequestParser(bundle_errors=True)
 postConvArgs.add_argument('name',type=str, required=False)
-postConvArgs.add_argument('username',type=str, required=True)
-postConvArgs.add_argument('password',type=str, required=True)
-
-getConvArgs = reqparse.RequestParser(bundle_errors=True)
-getConvArgs.add_argument('username',type=str, required=True)
-getConvArgs.add_argument('password',type=str, required=True)
 class ConversationResource(Resource):
     @api.marshal_with(convFields,code=201)
-    def post(self):
+    def post(self, username, password):
         args = postConvArgs.parse_args()
-        user = UserModel.query.filter(UserModel.username == args['username']).first()
-        if user is None:
-            abort(401)
-        if user.password != args['password']:
+        if not UserResource.authenticate(username,password):
             abort(401)
         conversation = ConversationModel(
             name = args['name'],
-            admin = args['username']
+            admin = username
         )
         db.session.add(conversation)
         db.session.flush()
         db.session.commit()
         participant = ParticipantModel(
-            username = args['username'],
+            username = username,
             conversationID = conversation.ID
         )
         db.session.add(participant)
@@ -116,17 +90,8 @@ class ConversationResource(Resource):
         return conversation
     @api.marshal_with(convFields,code=200)
     def get(self, username, password):
-        # args = getConvArgs.parse_args()
-        # user = UserModel.query.filter(UserModel.username == args['username']).first()
-        user = UserModel.query.filter(UserModel.username == username).first()
-
-        if user is None:
+        if not UserResource.authenticate(username,password):
             abort(401)
-        # if user.password != args['password']:
-        #     abort(401)
-        if user.password != password:
-            abort(401)
-        # memberships = ParticipantModel.query.filter(ParticipantModel.username == args['username']).all()
         memberships = ParticipantModel.query.filter(ParticipantModel.username == username).all()
         conversations = []
         for membership in memberships:
@@ -143,52 +108,38 @@ participantFields = api.model(
     }
 )
 postParticipantArgs = reqparse.RequestParser(bundle_errors=True)
-postParticipantArgs.add_argument('conversationID',type=int, required=True)
-postParticipantArgs.add_argument('admin', type=str, required=True)
-postParticipantArgs.add_argument('password', type=str, required=True)
 postParticipantArgs.add_argument('participant', type=str, required=True)
 
-getParticipantArgs = reqparse.RequestParser(bundle_errors=True)
-getParticipantArgs.add_argument('username',type=str, required=False)
-getParticipantArgs.add_argument('conversationID',type=int, required=False)
-getParticipantArgs.add_argument('joinedDateTime',type=datetime, required=False)
 class ParticipantResource(Resource):
     @api.marshal_with(participantFields, code=201)
-    def post(self):
+    def post(self, username, password, conversationID):
+        if not UserResource.authenticate(username,password):
+            abort(401)
         args = postParticipantArgs.parse_args()
-        conversation = ConversationModel.query.get(args['conversationID'])
+        conversation = ConversationModel.query.get(conversationID)
         if conversation is None:
             abort(409, 'conversation does not exist')
-        if conversation.admin != args['admin']:
-            abort(401)
-        admin = UserModel.query.filter(UserModel.username == conversation.admin).first()
-        if admin.password != args['password']:
-            abort(401)
-        participants = ParticipantModel.query.filter(ParticipantModel.conversationID == args['conversationID'])
+        if conversation.admin != username:
+            abort(403)
+        participants = ParticipantModel.query.filter(ParticipantModel.conversationID == conversationID)
         participant = participants.filter(ParticipantModel.username == args['participant']).first()
-        if participant is None:
-            print('None')
-        else:
-            print('not None')
         if participant is not None:
             abort(409, 'participant already added')
         participant = ParticipantModel(
             username = args['participant'],
-            conversationID = args['conversationID']
+            conversationID = conversationID
         )
         db.session.add(participant)
         db.session.flush()
         db.session.commit()
         return participant
     @api.marshal_with(participantFields, code=200)
-    def get():
-        args = getParticipantArgs.parse_args()
-        participantsQuery = ParticipantModel.query.filter(ParticipantModel.userID != None)
-        if args['userID'] is not None:
-            participantsQuery = participantsQuery.filter(ParticipantModel.userID == args['userID'])
-        if args['conversationID'] is not None:
-            participantsQuery = participantsQuery.filter(ParticipantModel.conversationID == args['conversationID'])
-        return participantsQuery.all()
+    def get(self,username,password,conversationID):
+        if not UserResource.authenticate(username,password):
+            abort(401)
+        participants = ParticipantModel.query.filter(ParticipantModel.conversationID == conversationID).all()
+        return participants
+        
 
 userFields = api.model(
     'User', 
@@ -202,24 +153,20 @@ userFields = api.model(
 postUserArgs = reqparse.RequestParser(bundle_errors=True)
 postUserArgs.add_argument('firstName',type=str,required=True)
 postUserArgs.add_argument('lastName',type=str,required=True)
-postUserArgs.add_argument('username',type=str,required=True)
-postUserArgs.add_argument('password',type=str,required=True)
 postUserArgs.add_argument('role',type=str,required=True)
 
-# getUserArgs = reqparse.RequestParser(bundle_errors=True)
-# getUserArgs.add_argument('username',type=str,required=True)
 class UserResource(Resource):
     @api.marshal_with(userFields, code=201)
-    def post(self):
+    def post(self, username, password):
         args = postUserArgs.parse_args()
-        user = UserModel.query.filter(UserModel.username == args['username']).first()
+        user = UserModel.query.filter(UserModel.username == username).first()
         if user is not None:
             abort(409, 'username already exists')
         user = UserModel(
             firstName = args['firstName'],
             lastName = args['lastName'],
-            username = args['username'],
-            password = args['password'],
+            username = username,
+            password = password,
             role = args['role']
         )
         db.session.add(user)
@@ -228,21 +175,21 @@ class UserResource(Resource):
         return user
     @api.marshal_with(userFields,code=200)
     def get(self,username,password):
-        # args = getUserArgs.parse_args()
-        # user = UserModel.query.filter(UserModel.username == args['username']).first()
+        if not self.authenticate(username,password):
+            abort(401)
+        user = UserModel.query.filter(UserModel.username == username)
+        return user
+    def authenticate(username,password):
         user = UserModel.query.filter(UserModel.username == username).first()
         if user is None:
-            print("Here")
-            abort(401)
+            return False
         if user.password != password:
-            abort(401)
-        return user
+            return False
+        return True
 
-api.add_resource(MsgResource,'/messages/')
-api.add_resource(ConversationResource,'/conversations/')
+api.add_resource(MsgResource,'/messages/<string:username>/<string:password>/<string:conversationID>')
 api.add_resource(ConversationResource,'/conversations/<string:username>/<string:password>')
-api.add_resource(ParticipantResource,'/participants/')
-api.add_resource(UserResource,'/users/')
+api.add_resource(ParticipantResource,'/participants/<string:username>/<string:password>/<string:conversationID>')
 api.add_resource(UserResource,'/users/<string:username>/<string:password>')
 
 if __name__ == '__main__':

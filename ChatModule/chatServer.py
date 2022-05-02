@@ -2,6 +2,7 @@ from ast import Pass
 import re
 from flask import Flask, abort
 from flask_restx import Api, Resource, reqparse, fields
+from matplotlib.style import use
 from models import db, MessageModel, ConversationModel, ParticipantModel, UserModel
 from datetime import datetime
 
@@ -190,7 +191,8 @@ userFields = api.model(
     {
         'username': fields.String,
         'firstName': fields.String,
-        'lastName': fields.String
+        'lastName': fields.String,
+        'role': fields.String
     }
 )
 postUserArgs = reqparse.RequestParser(bundle_errors=True)
@@ -200,8 +202,8 @@ postUserArgs.add_argument('username',type=str,required=True)
 postUserArgs.add_argument('password',type=str,required=True)
 postUserArgs.add_argument('role',type=str,required=True)
 
-getUserArgs = reqparse.RequestParser(bundle_errors=True)
-getUserArgs.add_argument('username',type=str,required=True)
+# getUserArgs = reqparse.RequestParser(bundle_errors=True)
+# getUserArgs.add_argument('username',type=str,required=True)
 class UserResource(Resource):
     @api.marshal_with(userFields, code=201)
     def post(self):
@@ -221,15 +223,18 @@ class UserResource(Resource):
         db.session.commit()
         return user
     @api.marshal_with(userFields,code=200)
-    def get():
-        args = getUserArgs.parse_args()
-        user = UserModel.query.filter(UserModel.username == args['username']).first()
+    def get(self,username,password):
+        # args = getUserArgs.parse_args()
+        # user = UserModel.query.filter(UserModel.username == args['username']).first()
+        user = UserModel.query.filter(UserModel.username == username).first()
+        if user.password != password:
+            abort(401)
         return user
 
 api.add_resource(MsgResource,'/messages/')
 api.add_resource(ConversationResource,'/conversations/')
 api.add_resource(ParticipantResource,'/participants/')
-api.add_resource(UserResource,'/users/')
+api.add_resource(UserResource,'/users/<string:username>/<string:password>')
 
 if __name__ == '__main__':
     app.run(debug=True)

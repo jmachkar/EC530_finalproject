@@ -133,6 +133,10 @@ All the web app development code is written inside the [`./platform`](./platform
 
 ## Backend
 
+![image](https://user-images.githubusercontent.com/75552982/166557312-bfe36f97-2562-4e23-a71e-7e1f936f1a8f.png)
+![image](https://user-images.githubusercontent.com/75552982/166558082-529b308d-4062-4613-95bc-00584bfadeab.png)
+![image](https://user-images.githubusercontent.com/75552982/166558168-e446d5a6-8530-4633-a8ab-cf34a1de6bb6.png)
+
 ### Database
 
 Talk about database models and design choices

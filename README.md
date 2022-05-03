@@ -78,25 +78,25 @@ For our final project, we decided to make a web app for students and teachers to
 
 The home page is where users can log in using their credentials. You must first select your role by clicking on the corresponding button.
 
-<img src="./platform/src/images/homePage.png" alt="Home Screen" width=600/>
+<img src="./platform/src/images/homePage.png" alt="Home Screen" width=700/>
 
 When you click on your desired role, a login form will pop up asking for your username and password. These fields are required in order to move to the next screen. Changing your role will dynamically update the form to show the selected role.
 
-<img src="./platform/src/images/loginPage.png" alt="Login Screen" width=600/>
+<img src="./platform/src/images/loginPage.png" alt="Login Screen" width=700/>
 
 When you click on the login button, an API call will be made to authenticate the user and check if the user exists in the database and whether the password is correct or not.
 
 If the user does not exist, or the password was incorrect, an alert will be displayed on the window.
 
-<img src="./platform/src/images/wrongLogin.png" alt="Login error alert" width=600/>
+<img src="./platform/src/images/wrongLogin.png" alt="Login error alert" width=700/>
 
 If the user does exist, they will be redirected to the chat screen.
 
-<img src="./platform/src/images/chatPage.png" alt="Initial chat screen" width=600/>
+<img src="./platform/src/images/chatPage.png" alt="Initial chat screen" width=700/>
 
 The chat app will load up all the chats this user is part of and display them on the side-bar to the left. A user can click on any of their chats to display the messages and send messages to that chat. A double click will trigger the chat to scroll to the bottom of the chat where the most recent messages are displayed.
 
-<img src="./platform/src/images/messagesPage.png" alt="Messages screen" width=600/>
+<img src="./platform/src/images/messagesPage.png" alt="Messages screen" width=700/>
 
 The messages will be displayed in order of their sent time, and the username of the person who sent the message will show up above the message bubble.
 
@@ -105,7 +105,7 @@ The user can send messages by typing in the textarea and by clicking the enter k
 A new chat can be created by clicking on the plus button by "Chats" on the top left of the screen.
 This will open a draggable form on the same window prompting the user for a group name and the username of the participants they would like to add to the chat seperated by white spaces.
 
-<img src="./platform/src/images/addGroup.png" alt="Messages screen" width=600/>
+<img src="./platform/src/images/addGroup.png" alt="Messages screen" width=700/>
 
 Upon clicking on create, the new group will be added to the user's list of chats and all the participants will be added to the conversation provided their username exists on the database.
 

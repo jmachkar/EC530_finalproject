@@ -112,7 +112,7 @@
   font-size: large;
   color: white;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
   width: fit-content;
   align-self: flex-end;
 }
@@ -128,7 +128,7 @@
   color: white;
   display: flex;
   justify-content: flex-start;
-  flex-direction: row;
+  flex-direction: column;
   width: fit-content;
   align-self: flex-start;
 }
@@ -144,6 +144,12 @@
   background-size: contain;
   border-bottom-right-radius: 8%;
   align-items: center;
+}
+
+.message-username {
+  font-size: smaller;
+  font-weight: lighter;
+  font-style: italic;
 }
 
 .send-button {

@@ -8,7 +8,8 @@ import {
 import "../components/login.css";
 import Buttons from "../components/buttons";
 import Login from "../components/loginBox";
-import { LoginUser, callLogin } from "../backend/loginRequest";
+
+const BASE = "http://127.0.0.1:5000";
 
 class LoginScreen extends Component {
   state = {
@@ -42,10 +43,28 @@ class LoginScreen extends Component {
   };
 
   handleLogin = () => {
-    let result = LoginUser(this.state.curr);
-    // console.log(this.state.curr.username);
-    // console.log(this.state.curr.password);
-    // console.log(result);
+    fetch(
+      BASE +
+        "/users/" +
+        this.state.curr.username +
+        "/" +
+        this.state.curr.password
+    ).then((response) => {
+      if (response.status !== 200) {
+        alert("Wrong username or password");
+      } else {
+        var pw = [];
+        for (let index = 0; index < this.state.curr.password.length; index++) {
+          const code = this.state.curr.password.charCodeAt(index);
+          pw.push(code);
+        }
+        window.location.assign(
+          `http://localhost:3000/chat/${this.state.curr.role}/${
+            this.state.curr.username
+          }/${pw.join("-")}`
+        );
+      }
+    });
   };
 
   handleUserChange = (user) => {

@@ -152,13 +152,113 @@ We chose to implement a RESTful API, making operations easy to conceptualize. Ea
 Resource definitions:
 
 ```
-class MsgResource(flask_restx.resource.Resource)                                                                         |  MsgResource(api=None, *args, **kwargs)                                                                               |                                                                                                                       |  Method resolution order:                                                                                             |      MsgResource                                                                                                      |      flask_restx.resource.Resource                                                                                    |      flask.views.MethodView                                                                                           |      flask.views.View                                                                                                 |      builtins.object                                                                                                  |                                                                                                                       |  Methods defined here:                                                                                                |                                                                                                                       |  get(self, username, password, conversationID)                                                                        |                                                                                                                       |  mediatypes lambda resource_cls                                                                                       |                                                                                                                       |  post(self, username, password, conversationID)
-
-class ConversationResource(flask_restx.resource.Resource)                                                                |  ConversationResource(api=None, *args, **kwargs)                                                                      |                                                                                                                       |  Method resolution order:                                                                                             |      ConversationResource                                                                                             |      flask_restx.resource.Resource                                                                                    |      flask.views.MethodView                                                                                           |      flask.views.View                                                                                                 |      builtins.object                                                                                                  |                                                                                                                       |  Methods defined here:                                                                                                |                                                                                                                       |  get(self, username, password)                                                                                        |                                                                                                                       |  mediatypes lambda resource_cls                                                                                       |                                                                                                                       |  post(self, username, password)                                                                                       |                                                                                                                       |  ----------------------------------------------------------------------                                               |  Data and other attributes defined here:                                                                              |                                                                                                                       |  __annotations__ = {}                                                                                                 |                                                                                                                       |  endpoint = 'conversation_resource'                                                                                   |                                                                                                                       |  methods = {'GET', 'POST'} 
-
-class UserResource(flask_restx.resource.Resource)                                                                        |  UserResource(api=None, *args, **kwargs)                                                                              |                                                                                                                       |  Method resolution order:                                                                                             |      UserResource                                                                                                     |      flask_restx.resource.Resource                                                                                    |      flask.views.MethodView                                                                                           |      flask.views.View                                                                                                 |      builtins.object                                                                                                  |                                                                                                                       |  Methods defined here:                                                                                                |                                                                                                                       |  get(self, username, password)                                                                                        |                                                                                                                       |  mediatypes lambda resource_cls                                                                                       |                                                                                                                       |  post(self, username, password)                                                                                       |                                                                                                                       |  ----------------------------------------------------------------------                                               |  Data and other attributes defined here:                                                                              |                                                                                                                       |  __annotations__ = {}                                                                                                 |                                                                                                                       |  endpoint = 'user_resource'                                                                                           |                                                                                                                       |  methods = {'GET', 'POST'} 
-
-class ParticipantResource(flask_restx.resource.Resource)                                                                 |  ParticipantResource(api=None, *args, **kwargs)                                                                       |                                                                                                                       |  Method resolution order:                                                                                             |      ParticipantResource                                                                                              |      flask_restx.resource.Resource                                                                                    |      flask.views.MethodView                                                                                           |      flask.views.View                                                                                                 |      builtins.object                                                                                                  |                                                                                                                       |  Methods defined here:                                                                                                |                                                                                                                       |  get(self, username, password, conversationID)                                                                        |                                                                                                                       |  mediatypes lambda resource_cls                                                                                       |                                                                                                                       |  post(self, username, password, conversationID)                                                                       |                                                                                                                       |  ----------------------------------------------------------------------                                               |  Data and other attributes defined here:                                                                              |                                                                                                                       |  __annotations__ = {}                                                                                                 |                                                                                                                       |  endpoint = 'participant_resource'                                                                                    |                                                                                                                       |  methods = {'GET', 'POST'} 
+class MsgResource(flask_restx.resource.Resource)
+ |  MsgResource(api=None, *args, **kwargs)
+ |
+ |  Method resolution order:
+ |      MsgResource
+ |      flask_restx.resource.Resource
+ |      flask.views.MethodView
+ |      flask.views.View
+ |      builtins.object
+ |
+ |  Methods defined here:
+ |
+ |  get(self, username, password, conversationID)
+ |
+ |  mediatypes lambda resource_cls
+ |
+ |  post(self, username, password, conversationID)
+ |
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |
+ |  __annotations__ = {}
+ |
+ |  endpoint = 'msg_resource'
+ |
+ |  methods = {'GET', 'POST'}
+ 
+ class ConversationResource(flask_restx.resource.Resource)
+ |  ConversationResource(api=None, *args, **kwargs)
+ |
+ |  Method resolution order:
+ |      ConversationResource
+ |      flask_restx.resource.Resource
+ |      flask.views.MethodView
+ |      flask.views.View
+ |      builtins.object
+ |
+ |  Methods defined here:
+ |
+ |  get(self, username, password)
+ |
+ |  mediatypes lambda resource_cls
+ |
+ |  post(self, username, password)
+ |
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |
+ |  __annotations__ = {}
+ |
+ |  endpoint = 'conversation_resource'
+ |
+ |  methods = {'GET', 'POST'}
+ 
+ class ParticipantResource(flask_restx.resource.Resource)
+ |  ParticipantResource(api=None, *args, **kwargs)
+ |
+ |  Method resolution order:
+ |      ParticipantResource
+ |      flask_restx.resource.Resource
+ |      flask.views.MethodView
+ |      flask.views.View
+ |      builtins.object
+ |
+ |  Methods defined here:
+ |
+ |  get(self, username, password, conversationID)
+ |
+ |  mediatypes lambda resource_cls
+ |
+ |  post(self, username, password, conversationID)
+ |
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |
+ |  __annotations__ = {}
+ |
+ |  endpoint = 'participant_resource'
+ |
+ |  methods = {'GET', 'POST'}
+ 
+ class UserResource(flask_restx.resource.Resource)
+ |  UserResource(api=None, *args, **kwargs)
+ |
+ |  Method resolution order:
+ |      UserResource
+ |      flask_restx.resource.Resource
+ |      flask.views.MethodView
+ |      flask.views.View
+ |      builtins.object
+ |
+ |  Methods defined here:
+ |
+ |  get(self, username, password)
+ |
+ |  mediatypes lambda resource_cls
+ |
+ |  post(self, username, password)
+ |
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |
+ |  __annotations__ = {}
+ |
+ |  endpoint = 'user_resource'
+ |
+ |  methods = {'GET', 'POST'}
 ```
 
 ## API calls

@@ -189,7 +189,7 @@ def authenticate(username,password):
 
 api.add_resource(MsgResource,'/messages/<string:username>/<string:password>/<string:conversationID>')
 api.add_resource(ConversationResource,'/conversations/<string:username>/<string:password>')
-api.add_resource(ParticipantResource,'/participants/<string:username>/<string:password>/<string:conversationID>')
+api.add_resource(ParticipantResource,'/participants/<string:username>/<string:password>/<int:conversationID>')
 api.add_resource(UserResource,'/users/<string:username>/<string:password>')
 
 if __name__ == '__main__':

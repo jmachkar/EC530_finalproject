@@ -94,5 +94,5 @@ This will open a draggable form on the same window prompting the user for a grou
 
 Upon clicking on create, the new group will be added to the user's list of chats and all the participants will be added to the conversation provided their username exists on the database.
 
-![image](https://user-images.githubusercontent.com/75552982/164146339-fbb4a1c2-f867-45ac-843e-b789b52cccdc.png)
+![image](https://user-images.githubusercontent.com/75552982/166407327-cde39f5a-3af6-44f2-a8a8-a84db857b23f.png)
 https://www.youtube.com/watch?v=xL_tYrEcP9M

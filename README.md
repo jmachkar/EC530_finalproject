@@ -100,7 +100,7 @@ The chat app will load up all the chats this user is part of and display them on
 
 The messages will be displayed in order of their sent time, and the username of the person who sent the message will show up above the message bubble.
 
-The user can send messages by typing in the textare and by clicking the enter key or by clicking on the arrow button on the bottom right of the screen.
+The user can send messages by typing in the textarea and by clicking the enter key or by clicking on the arrow button on the bottom right of the screen.
 
 A new chat can be created by clicking on the plus button by "Chats" on the top left of the screen.
 This will open a draggable form on the same window prompting the user for a group name and the username of the participants they would like to add to the chat seperated by white spaces.
@@ -129,7 +129,7 @@ All the web app development code is written inside the [`./platform`](./platform
 
 - [`components`](./platform/src/components/): Contains all the different jsx files with the class components that make up our app
 - [`images`](./platform/src/images/): Contains all the screenshots and images used in our code
-- [`screens`](./platform/src/screens/): This is where the main screens are coded and where our main components are called. These js files are the highest in the hierarchy of components (they are the class components we call in our [`index.js`](./platform/src/index.js) file), and where most of the API calls are made and state changes are set.
+- [`screens`](./platform/src/screens/): This is where the main screens are coded and where our main components are called. These js files are the highest in the hierarchy of components (they are the class components we call in our [`index.js`](./platform/src/index.js) file), and where most of the API calls are made and state changes are set
 
 ## Backend
 
@@ -232,12 +232,11 @@ getUserPassword = () => {
 };
 ```
 
-Another complicated case of calling our API is when the user creates a new chat. Since we are using a relational database, we need to make an API POST reuqest to post the conversation data to the conversation table, and the new participants data to the participants table:
+Another complicated case of calling our API is when the user creates a new chat. Since we are using a relational database, we need to make an API POST request to post the conversation data to the conversation table, and the new participants data to the participants table:
 
 ```javascript
 addGroup = (name, participants) => {
   // post group in convo table
-  // post participants in prtc table
   fetch(
     BASE + "/conversations/" + this.state.user + "/" + this.state.password,
     {
@@ -249,6 +248,7 @@ addGroup = (name, participants) => {
     }
   )
     .then((response) => {
+      // Check response code to see if can move on
       if (response.status !== 200) {
         alert("Something went wrong");
         console.log(response.statusText);
@@ -261,6 +261,7 @@ addGroup = (name, participants) => {
       return data;
     })
     .then((conversation) => {
+      // If new data is correct, we move on by doing a post for each participant
       if (conversation === undefined) {
         console.log("Something failed, conversation response is undefined");
       } else {

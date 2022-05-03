@@ -65,7 +65,6 @@ class ChatScreen extends Component {
 
   addGroup = (name, participants) => {
     // post group in convo table
-    // post participants in prtc table
     fetch(
       BASE + "/conversations/" + this.state.user + "/" + this.state.password,
       {
@@ -77,6 +76,7 @@ class ChatScreen extends Component {
       }
     )
       .then((response) => {
+        // Check response code to see if can move on
         if (response.status !== 200) {
           alert("Something went wrong");
           console.log(response.statusText);
@@ -89,6 +89,7 @@ class ChatScreen extends Component {
         return data;
       })
       .then((conversation) => {
+        // If new data is correct, we move on by doing a post for each participant
         if (conversation === undefined) {
           console.log("Something failed, conversation response is undefined");
         } else {

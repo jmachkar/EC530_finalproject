@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { getConvos } from "../backend/loginRequest";
 import ChatBox from "../components/chatBox";
 import ChatTags from "../components/chatTags";
 
@@ -18,22 +17,6 @@ class ChatScreen extends Component {
   }
 
   componentDidMount() {
-    // const url = window.location.href;
-    // console.log(url);
-    // const a = url.split("/");
-    // const user = a[5];
-    // console.log(user);
-    // const pw = a[6];
-    // var pwList = pw.split("-");
-    // console.log(pw);
-
-    // var password = "";
-    // for (let index = 0; index < pwList.length; index++) {
-    //   const char = String.fromCharCode(pwList[index]);
-    //   password += char;
-    // }
-    // console.log(password);
-    // var chats = getConvos(user, password);
     const out = this.getUserPassword();
     console.log("Ths is running again");
     fetch(BASE + "/conversations/" + out[0] + "/" + out[1])
@@ -80,6 +63,90 @@ class ChatScreen extends Component {
     ],
   };
 
+  addGroup = (name, participants) => {
+    // post group in convo table
+    // post participants in prtc table
+    var convo = {};
+    fetch(
+      BASE + "/conversations/" + this.state.user + "/" + this.state.password,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ name: name }),
+      }
+    )
+      .then((response) => {
+        if (response.status !== 200) {
+          alert("Something went wrong");
+          console.log(response.statusText);
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        return data;
+      })
+      .then((conversation) => {
+        if (conversation === undefined) {
+          console.log("Something failed, conversation response is undefined");
+        } else {
+          let chats = this.state.chats;
+          chats.push(conversation);
+          this.setState({ chats });
+          console.log("Posted new conversation");
+          console.log({ chats });
+          for (let index = 0; index < participants.length; index++) {
+            const element = participants[index];
+            fetch(
+              BASE +
+                "/participants/" +
+                this.state.user +
+                "/" +
+                this.state.password +
+                "/" +
+                conversation.ID,
+              {
+                method: "POST",
+                headers: {
+                  "Content-type": "application/json",
+                },
+                body: JSON.stringify({ participant: element }),
+              }
+            )
+              .then((response) => {
+                if (response.status !== 200) {
+                  alert("Something went wrong");
+                  console.log(response.statusText);
+                } else {
+                  return response.json();
+                }
+              })
+              .then((data) => {
+                console.log(data);
+                return data;
+              })
+              .then((participant) => {
+                if (participant === undefined) {
+                  console.log(
+                    "Something failed, participant response is undefined"
+                  );
+                } else {
+                  console.log(
+                    "New participant " +
+                      participant.username +
+                      " added to convo " +
+                      conversation.name
+                  );
+                }
+              });
+          }
+        }
+      });
+  };
+
   getUserPassword = () => {
     const url = window.location.href;
     // console.log(url);
@@ -104,9 +171,6 @@ class ChatScreen extends Component {
   handleOnClick = (group) => {
     const curr = group;
     console.log(group);
-    //GET MESSAGES
-    // const messages = newchats
-    // const out = this.getUserPassword();
 
     fetch(
       BASE +
@@ -195,7 +259,11 @@ class ChatScreen extends Component {
     return (
       <div className="main-chat">
         <div className="sub-main-chat">
-          <ChatTags chats={this.state.chats} onClick={this.handleOnClick} />
+          <ChatTags
+            chats={this.state.chats}
+            onClick={this.handleOnClick}
+            addGroup={this.addGroup}
+          />
           <ChatBox
             curr={this.state.curr}
             messages={this.state.messages}

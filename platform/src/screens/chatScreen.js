@@ -66,7 +66,6 @@ class ChatScreen extends Component {
   addGroup = (name, participants) => {
     // post group in convo table
     // post participants in prtc table
-    var convo = {};
     fetch(
       BASE + "/conversations/" + this.state.user + "/" + this.state.password,
       {
@@ -107,7 +106,7 @@ class ChatScreen extends Component {
                 "/" +
                 this.state.password +
                 "/" +
-                conversation.ID,
+                conversation.ID.toString(),
               {
                 method: "POST",
                 headers: {

@@ -8,18 +8,18 @@ Team members:
 
 ## Table of Contents
 
-- ## [Project Overview](#project-overview)
-- ## [Tech Specs](#tech-specs)
-- ## [TODO](#todo)
-  - ### [Frontend](#frontend)
-  - ### [Backend](#backend)
-- ## [Run Locally](#run-locally)
-- ## [How to Use](#how-to-use)
-- ## [Code Hierarchy](#code-hierarchy)
-- ## [Backend](#backend-1)
-  - ### [Database](#database)
-  - ### [API Server](#api-server)
-- ## [API Calls](#api-calls)
+- [Project Overview](#project-overview)
+- [Tech Specs](#tech-specs)
+- [TODO](#todo)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+- [Run Locally](#run-locally)
+- [How to Use](#how-to-use)
+- [Code Hierarchy](#code-hierarchy)
+- [Backend](#backend-1)
+  - [Database](#database)
+  - [API Server](#api-server)
+- [API Calls](#api-calls)
 
 ## Project Overview
 

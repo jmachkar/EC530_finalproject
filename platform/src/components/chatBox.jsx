@@ -5,28 +5,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class ChatBox extends Component {
   state = {
-    key: -1,
-    message: "",
+    cid: this.props.curr.id,
+    content: "",
   };
 
-  handleOnChange = (message) => {
-    this.setState({ key: this.props.messages.length, message });
+  handleOnChange = (content) => {
+    this.setState({ content });
   };
 
   handleClear = () => {
     console.log(this.props.messages);
-    this.setState({ key: -1, message: "" });
+    this.setState({ content: "" });
   };
 
   onEnterPress = (e) => {
     if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
-      this.props.send({
-        key: this.props.messages.length,
-        message: e.target.value,
-        cid: this.props.curr.id,
-        sent: true,
-      });
+      this.props.send(this.state.content);
       this.handleClear();
     }
   };
@@ -39,11 +34,15 @@ class ChatBox extends Component {
           <b className="chat-name">{this.props.curr.name}</b>
         </div>
         <div className="message-type-box">
-          <Messages messages={this.props.messages} cid={this.props.curr.id} />
+          <Messages
+            messages={this.props.messages}
+            cid={this.props.curr.id}
+            user={this.props.user}
+          />
           <div className="input-box">
             <textarea
               className="input"
-              value={this.state.message}
+              value={this.state.content}
               required
               onChange={(e) => this.handleOnChange(e.target.value)}
               onKeyDown={(e) => this.onEnterPress(e)}
@@ -51,13 +50,9 @@ class ChatBox extends Component {
             <div
               className="send-button"
               onClick={() => {
-                this.props.send(
-                  Object.assign(this.state, {
-                    cid: this.props.curr.id,
-                    sent: true,
-                  })
-                );
+                this.props.send(this.state.content);
                 this.handleClear();
+                console.log("this happened");
               }}
             >
               <FontAwesomeIcon className="send-icon" icon={faArrowRight} />

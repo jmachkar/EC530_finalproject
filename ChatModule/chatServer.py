@@ -15,6 +15,7 @@ with app.app_context():
 msgFields = api.model(
     'Message', 
     {
+        'ID' : fields.Integer,
         'username': fields.String,
         'conversationID': fields.Integer,
         'content': fields.String,

@@ -1,3 +1,8 @@
+.add-grp {
+  font-size: x-large;
+  color: #0557d3;
+}
+
 .chat-box {
   width: 80%;
   height: 100%;
@@ -6,16 +11,16 @@
 
 .chats-header {
   font-size: 3vmin;
-  margin-left: 25%;
+  margin-left: 10%;
 }
 
 .chats-header-box {
   height: 8%;
   width: 100%;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   border-bottom: 2px solid black;
+  justify-content: space-evenly;
 }
 .chat-name {
   font-size: 4vmin;
@@ -44,6 +49,53 @@
   width: 100%;
   height: 92%;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.form-hidden {
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  outline: 1px solid black;
+  background: white;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-visible {
+  visibility: visible;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: min-content;
+  outline: 1px solid black;
+  background: white;
+  height: min-content;
+  border-radius: 1rem;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  cursor: move;
 }
 
 .input {
@@ -59,6 +111,15 @@
   display: flex;
   flex-direction: row;
   border-bottom-right-radius: 8%;
+}
+
+.input-grp-name {
+  padding: 10px;
+}
+
+.input-grp-name-text {
+  resize: none;
+  width: 100%;
 }
 
 .group-name-tag {
@@ -112,7 +173,7 @@
   font-size: large;
   color: white;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
   width: fit-content;
   align-self: flex-end;
 }
@@ -128,7 +189,7 @@
   color: white;
   display: flex;
   justify-content: flex-start;
-  flex-direction: row;
+  flex-direction: column;
   width: fit-content;
   align-self: flex-start;
 }
@@ -140,10 +201,17 @@
   flex-direction: column;
   justify-content: flex-end;
   background-color: #ffffff;
-  background-image: url(https://previews.123rf.com/images/keronn/keronn1912/keronn191200124/136460142-space-seamless-background-science-set-collection-cute-funny-background-hand-drawn-artwork-black-and-.jpg);
+  /* background-image: url(https://previews.123rf.com/images/keronn/keronn1912/keronn191200124/136460142-space-seamless-background-science-set-collection-cute-funny-background-hand-drawn-artwork-black-and-.jpg); */
+  background-image: url(../images/chatBackground.jpg);
   background-size: contain;
   border-bottom-right-radius: 8%;
   align-items: center;
+}
+
+.message-username {
+  font-size: smaller;
+  font-weight: lighter;
+  font-style: italic;
 }
 
 .send-button {

@@ -6,21 +6,16 @@ class Message extends Component {
   };
   render() {
     return (
-      // <div
-      //   className={
-      //     this.state.message.sent ? "message-sent" : "message-received"
-      //   }
-      // >
       <div
         className={
-          this.state.message.sent
+          this.state.message.username === this.props.user
             ? "message-content-sent"
             : "message-content-received"
         }
       >
-        {this.state.message.message}
+        <div className="message-username">{this.state.message.username}</div>
+        <div>{this.state.message.content}</div>
       </div>
-      /* </div> */
     );
   }
 }

@@ -140,16 +140,17 @@ Endpoints and usage:
 
 ### Database
 
-We chose to implement a SQL model because our data is highly regular and suitable for tables. Each row holds all the information you'd need, so access times will be faster using a SQL model rather than a NoSQL model. 
+We chose to implement a SQL model because our data is highly regular and suitable for tables. Each row holds all the information you'd need, so access times will be faster using a SQL model rather than a NoSQL model.
 
 Entity Relationship Diagram:
 ![image](https://user-images.githubusercontent.com/75552982/166407327-cde39f5a-3af6-44f2-a8a8-a84db857b23f.png)
 
 ### API server
 
-We chose to implement a RESTful API, making operations easy to conceptualize. Each table was modeled as a class with CRUD methods. While we only implemented POST and GET operations, PUT, DELETE, and PATCH operations can be easily integrated becuase of our RESTful design. 
+We chose to implement a RESTful API, making operations easy to conceptualize. Each table was modeled as a class with CRUD methods. While we only implemented POST and GET operations, PUT, DELETE, and PATCH operations can be easily integrated becuase of our RESTful design.
+You can access the full API documentation by running the ChatServer and opening the url (likely "http://localhost:5000")
 
-Resource definitions:
+#### Resource definitions:
 
 ```
 class MsgResource(flask_restx.resource.Resource)
@@ -178,7 +179,7 @@ class MsgResource(flask_restx.resource.Resource)
  |  endpoint = 'msg_resource'
  |
  |  methods = {'GET', 'POST'}
- 
+
  class ConversationResource(flask_restx.resource.Resource)
  |  ConversationResource(api=None, *args, **kwargs)
  |
@@ -205,7 +206,7 @@ class MsgResource(flask_restx.resource.Resource)
  |  endpoint = 'conversation_resource'
  |
  |  methods = {'GET', 'POST'}
- 
+
  class ParticipantResource(flask_restx.resource.Resource)
  |  ParticipantResource(api=None, *args, **kwargs)
  |
@@ -232,7 +233,7 @@ class MsgResource(flask_restx.resource.Resource)
  |  endpoint = 'participant_resource'
  |
  |  methods = {'GET', 'POST'}
- 
+
  class UserResource(flask_restx.resource.Resource)
  |  UserResource(api=None, *args, **kwargs)
  |

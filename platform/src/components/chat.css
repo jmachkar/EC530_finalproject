@@ -214,6 +214,12 @@
   font-style: italic;
 }
 
+.log-out {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .send-button {
   height: 100%;
   width: 10%;

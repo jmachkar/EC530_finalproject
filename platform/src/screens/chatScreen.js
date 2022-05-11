@@ -255,9 +255,19 @@ class ChatScreen extends Component {
     console.log("Done posting message");
   };
 
+  logOut = () => {
+    window.location.assign("http://localhost:3000/");
+  };
+
   render() {
     return (
       <div className="main-chat">
+        <button
+          onClick={() => this.logOut()}
+          className="btn btn-primary btn-lg m-2 log-out"
+        >
+          Log Out
+        </button>
         <div className="sub-main-chat">
           <ChatTags
             chats={this.state.chats}

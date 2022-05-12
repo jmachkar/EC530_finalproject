@@ -439,4 +439,4 @@ addGroup = (name, participants) => {
 
 We first make sure that the new conversation has been posted to the database, and then follow up for each participant with an API POST request to the participants table and make sure these have passed.
 
-https://www.youtube.com/watch?v=xL_tYrEcP9M
+## [Back to Top](#)

@@ -50,7 +50,7 @@
   height: 92%;
   overflow-y: scroll;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 
 .form {
